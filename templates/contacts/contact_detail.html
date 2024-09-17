@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Details</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Optional: Link to a CSS file for styling -->
+</head>
+<body>
+    <h1>Contact Details</h1>
+    <table border = '1' celspacing = '1'>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        {% for field, value in contact_form.fields.items %}
+            <tr>
+                <td>{{ field }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <div>
+        <p><strong>First Name:</strong> {{ contact.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ contact.last_name }}</p>
+        <p><strong>Email:</strong> {{ contact.email }}</p>
+        <p><strong>Phone Number:</strong> {{ contact.phone }}</p>
+        <p><strong>Address:</strong> {{ contact.address }}</p>
+    </div>
+
+    <div>
+        <a href="{% url 'edit_contact' contact.pk %}">Edit Contact</a> |
+        <a href="{% url 'delete_contact' contact.pk %}">Delete Contact</a> |
+        <a href="{% url 'contact_list' %}">Back to Contact List</a>
+    </div>
+</body>
+</html>

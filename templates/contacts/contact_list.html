@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Optional: Link to a CSS file for styling -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact List</h1>
+
+    <!-- Search form -->
+    <form method="GET" action="{% url 'contact_list' %}">
+        <input type="text" name="q" placeholder="Search by name or email" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Table of contacts -->
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <td><a href="{% url 'contact_detail' contact.pk %}">{{ contact.first_name }}</a></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>
+                    <a href="{% url 'edit_contact' contact.pk %}">Edit</a> |
+                    <a href="{% url 'delete_contact' contact.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No contacts found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add new contact button -->
+    <p><a href="{% url 'add_contact' %}">Add New Contact</a></p>
+</body>
+</html>
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Optional: Link to a CSS file for styling -->
+</head>
+<body>
+    <h1>Contact List</h1>
+
+    <!-- Search form -->
+    <form method="GET" action="{% url 'contact_list' %}">
+        <input type="text" name="q" placeholder="Search by name or email" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- List all contacts -->
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <td><a href="{% url 'contact_detail' contact.pk %}">{{ contact.first_name }}</a></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>
+                    <a href="{% url 'edit_contact' contact.pk %}">Edit</a> |
+                    <a href="{% url 'delete_contact' contact.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No contacts found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add new contact button -->
+    <p><a href="{% url 'add_contact' %}">Add New Contact</a></p>
+</body>
+</html> {% endcomment %}
